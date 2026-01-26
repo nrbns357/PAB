@@ -72,7 +72,7 @@ namespace PAB.Model
             objText.Font.Name = fontName;
             objText.Font.Size = musicFontSize;
             objText.Font.Bold = MsoTriState.msoTrue;
-            objText.Font.Color.RGB = 16777215;
+            objText.Font.Color.RGB = (255 << 16) | (255 << 8) | 255;
 
             if (bakcgoundFilePath != "파일 선택")
             {
@@ -108,7 +108,7 @@ namespace PAB.Model
             objText.Font.NameFarEast = fontName;
             objText.Font.Name = fontName;
             objText.Font.Size = bibleFontSize;
-            objText.Font.Color.RGB = 16777215;
+            objText.Font.Color.RGB = (255 << 16) | (255 << 8) | 255;
 
             var shapes = slide.Shapes.AddTextbox(MsoTextOrientation.msoTextOrientationHorizontal, 2.6f / convertToCM, 8 / convertToCM, 30 / convertToCM, 8 / convertToCM);
             objText = shapes.TextFrame.TextRange;
@@ -122,7 +122,7 @@ namespace PAB.Model
             objText.Font.Name = fontName;
             objText.Font.Size = bibleFontSize;
             objText.Font.Bold = MsoTriState.msoTrue;
-            objText.Font.Color.RGB = 16777215;
+            objText.Font.Color.RGB = (255 << 16) | (255 << 8) | 255; ;
 
             Microsoft.Office.Interop.PowerPoint.Shape[] shapesList = new Microsoft.Office.Interop.PowerPoint.Shape[3];
             for (int index = 0; index < 3; index++)
