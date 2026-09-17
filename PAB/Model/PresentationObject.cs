@@ -16,19 +16,33 @@ namespace PAB.Model
 
         Microsoft.Office.Interop.PowerPoint.Application pptApplication;
         Presentation pptPresentation;
-        readonly CustomLayout customLayout;
+        CustomLayout customLayout;
         readonly float convertToCM = 0.035f;
 
         int musicFontSize;
         int bibleFontSize;
         string fontName;
         string bakcgoundFilePath;
+        bool usePowerPoint;
 
-        public PresnetationObject()
+        public PresnetationObject(bool usePowerPoint = true)
         {
-            pptApplication = new Microsoft.Office.Interop.PowerPoint.Application();
-            pptPresentation = pptApplication.Presentations.Add(MsoTriState.msoTrue);
-            customLayout = pptPresentation.SlideMaster.CustomLayouts[PpSlideLayout.ppLayoutChartAndText];
+            this.usePowerPoint = usePowerPoint;
+            
+            if (usePowerPoint)
+            {
+                try
+                {
+                    pptApplication = new Microsoft.Office.Interop.PowerPoint.Application();
+                    pptPresentation = pptApplication.Presentations.Add(MsoTriState.msoTrue);
+                    customLayout = pptPresentation.SlideMaster.CustomLayouts[PpSlideLayout.ppLayoutChartAndText];
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("PowerPoint를 실행할 수 없습니다. WPF 프리젠테이션 모드로 진행합니다.\n(" + ex.Message + ")");
+                    this.usePowerPoint = false;
+                }
+            }
         }
 
         public void CreatePowerPointSlides(Setting setting)
@@ -38,7 +52,20 @@ namespace PAB.Model
             fontName = setting.fontName;
             bakcgoundFilePath = setting.backgoundFilePath;
             
-            ObservableCollection <ShowingObject> list = ListManager.GetMakeList();
+            ObservableCollection<ShowingObject> list = ListManager.GetMakeList();
+            
+            if (usePowerPoint)
+            {
+                CreatePowerPointPresentation(list);
+            }
+            else
+            {
+                CreateWPFPresentation(list);
+            }
+        }
+
+        private void CreatePowerPointPresentation(ObservableCollection<ShowingObject> list)
+        {
             foreach (ShowingObject showingObject in list.Reverse())
             {
                 slide = MakeSlide("", false);
@@ -50,6 +77,12 @@ namespace PAB.Model
                     slide = MakeSlide(contents[(contents.Length - 1) - i], showingObject is Bible);
                 }
             }
+        }
+
+        private void CreateWPFPresentation(ObservableCollection<ShowingObject> list)
+        {
+            var presentationWindow = new PresentationWindow(list, fontName, musicFontSize, bibleFontSize, bakcgoundFilePath);
+            presentationWindow.ShowDialog();
         }
 
         private _Slide MakeMusicSlide(string lyrics)

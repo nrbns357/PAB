@@ -10,6 +10,16 @@
             bibleFontSize = Properties.Settings.Default["bibleFontSize"].ToString();
             backgoundFilePath = Properties.Settings.Default["backgoundFilePath"].ToString();
             churchName = Properties.Settings.Default["churchName"].ToString();
+            
+            string usePptSetting = Properties.Settings.Default["usePowerPoint"]?.ToString();
+            if (string.IsNullOrEmpty(usePptSetting) || usePptSetting == "True")
+            {
+                usePowerPoint = true;
+            }
+            else
+            {
+                usePowerPoint = bool.Parse(usePptSetting);
+            }
         }
 
         private string _fontName { get; set; } = "HY견명조";
@@ -23,6 +33,7 @@
             {
                 _fontName = value;
                 Properties.Settings.Default["fontName"] = _fontName;
+                Properties.Settings.Default.Save();
             }
         }
 
@@ -45,6 +56,7 @@
                 }
                 _musicFontSize = int.Parse(result);
                 Properties.Settings.Default["musicFontSize"] = _musicFontSize;
+                Properties.Settings.Default.Save();
             }
         }
 
@@ -67,6 +79,7 @@
                 }
                 _bibleFontSize = int.Parse(result);
                 Properties.Settings.Default["bibleFontSize"] = _bibleFontSize;
+                Properties.Settings.Default.Save();
             }
         }
 
@@ -87,6 +100,7 @@
                     _backgoundFilePath = value;
                 }
                 Properties.Settings.Default["backgoundFilePath"] = _backgoundFilePath;
+                Properties.Settings.Default.Save();
             }
         }
 
@@ -101,6 +115,7 @@
             {
                 _productionKey = value;
                 Properties.Settings.Default["productionKey"] = _productionKey;
+                Properties.Settings.Default.Save();
             }
         }
 
@@ -115,6 +130,22 @@
             {
                 _churchName = value;
                 Properties.Settings.Default["churchName"] = _churchName;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private bool _usePowerPoint = true;
+        public bool usePowerPoint
+        {
+            get
+            {
+                return _usePowerPoint;
+            }
+            set
+            {
+                _usePowerPoint = value;
+                Properties.Settings.Default["usePowerPoint"] = _usePowerPoint;
+                Properties.Settings.Default.Save();
             }
         }
     }

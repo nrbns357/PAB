@@ -17,5 +17,8 @@
     <Setting Name="bibleFontSize" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">64</Value>
     </Setting>
+    <Setting Name="usePowerPoint" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

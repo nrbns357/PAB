@@ -39,7 +39,7 @@ namespace PAB.ViewModel
                 return;
             }
             Web.SaveLyricsOnServer(IPAdress.GetMacAdress(), Setting.churchName);
-            new PresnetationObject().CreatePowerPointSlides(Setting);
+            new PresnetationObject(Setting.usePowerPoint).CreatePowerPointSlides(Setting);
             Properties.Settings.Default.Save();
         }));
 

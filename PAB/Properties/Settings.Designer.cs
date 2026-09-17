@@ -82,5 +82,17 @@ namespace PAB.Properties {
                 this["bibleFontSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool usePowerPoint {
+            get {
+                return ((bool)(this["usePowerPoint"]));
+            }
+            set {
+                this["usePowerPoint"] = value;
+            }
+        }
     }
 }
